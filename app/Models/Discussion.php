@@ -16,14 +16,15 @@ class Discussion extends Model
     use HasFactory;
 
     protected $fillable = [
-        'created_by',
+        'user_id',
         'title',
+        'description',
         'topics'
     ];
 
     public function created_by()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function images()

@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('discussions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('created_by')
-                ->references('id')
-                ->on('users');
+            $table->foreignId('user_id')->constrained();
             $table->string('title')->unique();
+            $table->text('description');
             $table->string('topics');
             $table->softDeletes();
             $table->timestamps();
