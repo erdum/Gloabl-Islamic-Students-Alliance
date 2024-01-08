@@ -12,6 +12,15 @@ class DiscussionUpVoteSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\DiscussionUpVote::insert([
+            [
+                'user_id' => 2,
+                'discussion_id' => 1
+            ],
+            [
+                'user_id' => 3,
+                'discussion_id' => 1
+            ]
+        ]);
     }
 }
