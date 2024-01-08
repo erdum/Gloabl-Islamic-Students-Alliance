@@ -17,6 +17,13 @@ class UserSeeder extends Seeder
 
         \App\Models\User::insert([
             [
+                'name' => 'Abdullah',
+                'gender' => true,
+                'email' => 'abdullah@gmail.com',
+                'password' => Hash::make('abdullah123'),
+                'country_id' => $country->id
+            ],
+            [
                 'name' => 'Erdum Adnan',
                 'gender' => true,
                 'email' => 'erdumadnan@gmail.com',
