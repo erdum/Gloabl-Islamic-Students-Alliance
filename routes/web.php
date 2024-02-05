@@ -47,6 +47,11 @@ use App\Http\Controllers\AuthController;
         [DiscussionController::class, 'delete_down_vote']
     );
 
+    Route::get(
+        '/add/discussions',
+        [DiscussionController::class, 'add_discussion']
+    )->name('add-discussion');
+
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // });
 

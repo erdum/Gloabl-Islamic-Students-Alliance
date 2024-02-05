@@ -63,4 +63,9 @@ class DiscussionController extends Controller
 
         return abort(200);
     }
+
+    public function add_discussion()
+    {
+        return view('discussion.add');
+    }
 }
