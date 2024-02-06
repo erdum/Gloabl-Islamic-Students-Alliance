@@ -22,6 +22,10 @@ class Discussion extends Model
         'topics'
     ];
 
+    protected $casts = [
+        'topics' => 'array'
+    ];
+
     public function created_by()
     {
         return $this->belongsTo(User::class, 'user_id');
