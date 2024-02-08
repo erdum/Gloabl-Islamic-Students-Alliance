@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Country::class);
     }
+
+    public function discussions()
+    {
+        return $this->hasMany(Discussion::class);
+    }
 }

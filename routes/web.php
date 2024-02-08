@@ -47,7 +47,7 @@ use App\Http\Controllers\AuthController;
         [DiscussionController::class, 'delete_down_vote']
     );
 
-    Route::get(
+    Route::post(
         '/add/discussions',
         [DiscussionController::class, 'add_discussion']
     )->name('add-discussion');

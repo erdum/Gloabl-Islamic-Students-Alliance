@@ -42,12 +42,13 @@
       <div id="write-modal-overlay" class="fixed inset-0 bg-gray-500 bg-opacity-80 transition-opacity ease-in duration-200 opacity-0" aria-hidden="true"></div>
 
       <div id="write-modal-textbox" class="absolute top-1/2 left-1/2 w-2/5 -translate-x-1/2 -translate-y-1/2 transition-transform ease-out duration-200 scale-0">
-        <form action="#">
+        <form method="POST" action="{{ route('add-discussion') }}">
+          @csrf
           <div class="bg-white rounded-lg px-4 shadow-sm overflow-hidden focus-within:ring-stone-500 focus-within:ring-2">
             <label for="title" class="sr-only">Title</label>
-            <input type="text" name="title" id="title" class="block w-full border-0 pt-2.5 text-lg font-medium placeholder-gray-500 focus:outline-none" placeholder="Title">
+            <input required type="text" name="title" id="title" class="block w-full border-0 pt-2.5 text-lg font-medium placeholder-gray-500 focus:outline-none" placeholder="Title">
             <label for="description" class="sr-only">Description</label>
-            <textarea rows="2" name="description" id="description" class="block w-full border-0 py-0 resize-none placeholder-gray-500 focus:outline-none sm:text-sm" placeholder="Write a description..."></textarea>
+            <textarea required rows="4" name="description" id="description" class="block mt-2 w-full border-0 py-0 resize-none placeholder-gray-500 focus:outline-none sm:text-sm" placeholder="Express your freedom..."></textarea>
             <!-- Spacer element to match the height of the toolbar -->
             <div aria-hidden="true">
               <div class="py-2">
@@ -62,22 +63,21 @@
             </div>
           </div>
           <div class="absolute bottom-0 inset-x-px">
-            <!-- Actions: These are just examples to demonstrate the concept, replace/wire these up however makes sense for your project. -->
             <div class="flex flex-nowrap justify-end py-2 px-2 space-x-2 sm:px-3">
               <div class="flex-shrink-0">
                 <label id="listbox-label" class="sr-only"> Add a label </label>
                 <div class="relative">
-                  <button type="button" class="relative inline-flex items-center rounded-full py-2 px-2 bg-gray-100 text-sm font-medium text-gray-500 whitespace-nowrap hover:bg-gray-200 hover:text-gray-600 sm:px-3" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
+                  <button onclick="openTopicPopover()" type="button" class="relative inline-flex items-center rounded-full py-2 px-2 bg-gray-100 text-sm font-medium text-gray-500 whitespace-nowrap hover:bg-gray-200 hover:text-gray-600 sm:px-3" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
                     <!--
                   Heroicon name: solid/tag
 
                   Selected: "text-gray-300", Default: "text-gray-500"
                 -->
-                    <svg class="text-gray-400 flex-shrink-0 h-5 w-5 sm:-ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                    <svg class="text-gray-400 flex-shrink-0 h-5 w-5 sm:-ml-1" data-slot="icon" aria-hidden="true" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                      <path clip-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14Zm.75-10.25v2.5h2.5a.75.75 0 0 1 0 1.5h-2.5v2.5a.75.75 0 0 1-1.5 0v-2.5h-2.5a.75.75 0 0 1 0-1.5h2.5v-2.5a.75.75 0 0 1 1.5 0Z" fill-rule="evenodd"></path>
                     </svg>
                     <!-- Selected: "text-gray-900" -->
-                    <span class="hidden truncate sm:ml-2 sm:block"> Label </span>
+                    <span class="hidden truncate sm:ml-2 sm:block">Topics</span>
                   </button>
                   <!--
                 Select popover, show/hide based on select state.
@@ -89,7 +89,7 @@
                   From: "opacity-100"
                   To: "opacity-0"
               -->
-                  <ul class="hidden absolute right-0 z-10 mt-1 w-52 bg-white shadow max-h-56 rounded-lg py-3 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm" tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-0">
+                  <ul id="topics-popover" class="hidden absolute right-0 z-10 mt-1 w-52 bg-white shadow max-h-56 rounded-lg py-3 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm" tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-0">
                     <!--
                   Select option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation.
 
@@ -146,6 +146,11 @@
       () => closeDiscussionWritingModal()
     );
 
+    document.getElementById('topics-popover').addEventListener(
+      'blur',
+      () => closeTopicPopover()
+    );
+
     function openDiscussionWritingModal(event) {
       event.preventDefault();
       const writeModal = document.getElementById('write-modal');
@@ -176,6 +181,17 @@
       setTimeout(() => {
         writeModal.classList.add('hidden');
       }, 200);
+    };
+
+    function openTopicPopover() {
+      const topicsPopover = document.getElementById('topics-popover');
+      topicsPopover.classList.remove('hidden');
+      topicsPopover.focus();
+    };
+
+    function closeTopicPopover() {
+      const topicsPopover = document.getElementById('topics-popover');
+      topicsPopover.classList.add('hidden');
     };
 
   </script>

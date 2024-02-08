@@ -64,8 +64,20 @@ class DiscussionController extends Controller
         return abort(200);
     }
 
-    public function add_discussion()
+    public function add_discussion(Request $request)
     {
-        return view('discussion.add');
+        $request->validate([
+            'title' => 'required|unique:discussions|max:255',
+            'description' => 'required',
+        ]);
+
+        $discussion = new Discussion;
+        $discussion->title = $request->title;
+        $discussion->description = $request->description;
+        // $discussion->topics = explode(',', $request->topics);
+        $discussion->topics = ['test'];
+        $request->user()->discussions()->save($discussion);
+
+        return redirect()->route('discussion', ['id' => $discussion->id]);
     }
 }
