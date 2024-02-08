@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('discussion_images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('discussion_id')->constrained();
+            $table->foreignId('discussion_id')->constrained()
+                ->onDelete('cascade');
             $table->string('url');
             $table->unique(['discussion_id', 'url']);
             $table->softDeletes();

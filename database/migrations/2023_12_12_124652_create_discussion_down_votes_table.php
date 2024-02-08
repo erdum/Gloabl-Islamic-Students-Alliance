@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('discussion_down_votes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('discussion_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('discussion_id')->constrained()
+                ->onDelete('cascade');
             $table->unique([
                 'user_id',
                 'discussion_id'
