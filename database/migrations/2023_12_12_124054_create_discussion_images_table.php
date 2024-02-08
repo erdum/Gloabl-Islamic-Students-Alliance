@@ -13,14 +13,9 @@ return new class extends Migration
     {
         Schema::create('discussion_images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
             $table->foreignId('discussion_id')->constrained();
             $table->string('url');
-            $table->unique([
-                'user_id',
-                'discussion_id',
-                'url'
-            ]);
+            $table->unique(['discussion_id', 'url']);
             $table->softDeletes();
             $table->timestamps();
         });
