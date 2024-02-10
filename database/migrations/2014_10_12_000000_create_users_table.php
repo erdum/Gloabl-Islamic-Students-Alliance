@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->foreignId('country_id')->constrained()->onDelete('cascade');
             $table->string('avatar')->nullable();
+            $table->string('otp', 6)->unique()->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
