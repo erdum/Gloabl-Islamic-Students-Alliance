@@ -18,28 +18,28 @@ class UserSeeder extends Seeder
         \App\Models\User::insert([
             [
                 'name' => 'Abdullah',
-                'gender' => true,
+                'gender' => 'male',
                 'email' => 'abdullah@gmail.com',
                 'password' => Hash::make('abdullah123'),
                 'country_id' => $country->id
             ],
             [
                 'name' => 'Erdum Adnan',
-                'gender' => true,
+                'gender' => 'male',
                 'email' => 'erdumadnan@gmail.com',
                 'password' => Hash::make('erdum123'),
                 'country_id' => $country->id
             ],
             [
                 'name' => 'Hamza Khalid',
-                'gender' => true,
+                'gender' => 'male',
                 'email' => 'hamzakhalid@gmail.com',
                 'password' => Hash::make('hamza123'),
                 'country_id' => $country->id
             ],
             [
-                'name' => 'Hamza Sheikh',
-                'gender' => true,
+                'name' => 'Hammad Sheikh',
+                'gender' => 'male',
                 'email' => 'hammadsheikh@gmail.com',
                 'password' => Hash::make('hammad123'),
                 'country_id' => $country->id
