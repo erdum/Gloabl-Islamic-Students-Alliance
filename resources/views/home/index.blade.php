@@ -2,6 +2,7 @@
 @section('title', 'Global Islamic Students Alliance')
 @section('content')
 <div class="mt-6 pt-10 grid gap-16 lg:grid-cols-2 lg:gap-y-10">
+  @csrf
   @foreach ($discussions ?? [] as $discussion)
   <div>
     <div class="flex items-center">
@@ -24,38 +25,23 @@
         </div>
       </div>
 
-      @if (
-        $discussion->up_votes()
-          ->where('user_id', auth()->user()?->id)
-          ->count() > 0
-      )
-        <a onclick="upVote(event, this);" class="ml-auto flex items-baseline text-sm lg:text-base font-semibold text-green-600 bg-green-100 pl-1 pr-2 py-0.5 rounded-full cursor-pointer hover:bg-green-100">
-          <svg class="self-center flex-shrink-0 h-5 w-5 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-          </svg>
-          <span class="sr-only"> Up-vote Discussion </span>
-          <span>
-            {{ number_format($discussion->up_votes->count()) }}
-          </span>
-        </a>
-      @else
-        <a onclick="upVote(event, this);" href="{{ route('up-vote', ['discussion_id' => $discussion->id]) }}" title="up-vote discussion" class="ml-auto flex items-baseline text-sm lg:text-base font-semibold text-green-600 pl-1 pr-2 py-0.5 rounded-full cursor-pointer hover:bg-green-100">
-          <svg class="self-center flex-shrink-0 h-5 w-5 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-          </svg>
-          <span class="sr-only"> Up-vote Discussion </span>
-          <span>
-            {{ number_format($discussion->up_votes->count()) }}
-          </span>
-        </a>
-      @endif
+      @php $is_up_voted = $discussion->up_votes()
+        ->where('user_id', auth()->user()?->id)->count() > 0
+      @endphp
+      <a onclick="upVote(event, this);" href="{{ route('up-vote', ['discussion_id' => $discussion->id]) }}" title="up-vote discussion" class="ml-auto flex items-baseline text-sm lg:text-base font-semibold text-green-600 {{ $is_up_voted ? 'bg-green-100' : '' }} pl-1 pr-2 py-0.5 rounded-full cursor-pointer hover:bg-green-100">
+        <svg class="self-center flex-shrink-0 h-5 w-5 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+        </svg>
+        <span class="sr-only"> Up-vote Discussion </span>
+        <span>
+          {{ number_format($discussion->up_votes->count()) }}
+        </span>
+      </a>
 
-      @if (
-        $discussion->down_votes()
-          ->where('user_id', auth()->user()?->id)
-          ->count() > 0
-      )
-        <a onclick="downVote(event, this);" title="down-vote discussion" class="flex items-baseline text-sm lg:text-base font-semibold text-red-600 bg-red-100 pl-1 pr-2 py-0.5 rounded-full cursor-pointer hover:bg-red-100">
+      @php $is_down_voted = $discussion->down_votes()
+        ->where('user_id', auth()->user()?->id)->count() > 0
+      @endphp
+        <a onclick="downVote(event, this);" href="{{ route('down-vote', ['discussion_id' => $discussion->id]) }}" title="down-vote discussion" class="flex items-baseline text-sm lg:text-base font-semibold text-red-600 {{ $is_down_voted ? 'bg-red-100' : '' }} pl-1 pr-2 py-0.5 rounded-full cursor-pointer hover:bg-red-100">
           <svg class="self-center flex-shrink-0 h-5 w-5 text-red-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path fill-rule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd" />
           </svg>
@@ -64,17 +50,6 @@
             {{ number_format($discussion->down_votes->count()) }}
           </span>
         </a>
-      @else
-        <a onclick="downVote(event, this);" href="{{ route('down-vote', ['discussion_id' => $discussion->id]) }}" title="down-vote discussion" class="flex items-baseline text-sm lg:text-base font-semibold text-red-600 pl-1 pr-2 py-0.5 rounded-full cursor-pointer hover:bg-red-100">
-          <svg class="self-center flex-shrink-0 h-5 w-5 text-red-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-          </svg>
-          <span class="sr-only"> Down-vote discussion </span>
-          <span>
-            {{ number_format($discussion->down_votes->count()) }}
-          </span>
-        </a>
-      @endif
 
       <p title="reads" class="flex items-baseline text-sm lg:text-base font-semibold text-amber-500 pl-1 pr-2 py-0.5 rounded-full">
         <svg class="self-center flex-shrink-0 h-5 w-5 text-amber-500 mr-1" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -108,11 +83,14 @@
     const counter = upvoteBtn.querySelectorAll('span')[1];
     const currentCount = parseInt(counter.innerText);
     const upvoteUrl = upvoteBtn.getAttribute('href');
+    const token = document.querySelector('[name=_token]').value;
 
     if (upvoteBtn.classList.contains('bg-green-100')) {
       upvoteBtn.classList.remove('bg-green-100');
       counter.innerText = currentCount - 1;
-      const res = await fetch(upvoteUrl, { method: 'DELETE' });
+      const res = await fetch(upvoteUrl, {
+        method: 'DELETE', headers: { 'X-CSRF-TOKEN': token } 
+      });
 
       if (res.status != 200) {
         upvoteBtn.classList.add('bg-green-100');
@@ -121,7 +99,7 @@
     } else {
       upvoteBtn.classList.add('bg-green-100');
       counter.innerText = currentCount + 1;
-      const res = await fetch(upvoteUrl);
+      const res = await fetch(upvoteUrl, { headers: { 'X-CSRF-TOKEN': token }});
 
       if (res.status != 200) {
         upvoteBtn.classList.remove('bg-green-100');
@@ -135,11 +113,14 @@
     const counter = downvoteBtn.querySelectorAll('span')[1];
     const currentCount = parseInt(counter.innerText);
     const downvoteUrl = downvoteBtn.getAttribute('href');
+    const token = document.querySelector('[name=_token]').value;
 
     if (downvoteBtn.classList.contains('bg-red-100')) {
       downvoteBtn.classList.remove('bg-red-100');
       counter.innerText = currentCount - 1;
-      const res = await fetch(downvoteUrl, { method: 'DELETE' });
+      const res = await fetch(downvoteUrl, {
+        method: 'DELETE', headers: { 'X-CSRF-TOKEN': token }
+      });
 
       if (res.status != 200) {
         downvoteBtn.classList.add('bg-red-100');
@@ -148,7 +129,9 @@
     } else {
       downvoteBtn.classList.add('bg-red-100');
       counter.innerText = currentCount + 1;
-      const res = await fetch(downvoteUrl);
+      const res = await fetch(downvoteUrl, {
+        headers: { 'X-CSRF-TOKEN': token }
+      });
 
       if (res.status != 200) {
         downvoteBtn.classList.remove('bg-red-100');

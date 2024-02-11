@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Discussion;
 use App\Models\DiscussionUpVote;
+use App\Models\DiscussionDownVote;
 
 class DiscussionController extends Controller
 {
