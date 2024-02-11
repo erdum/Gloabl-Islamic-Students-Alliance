@@ -134,7 +134,7 @@ class AuthController extends Controller
     {
         Mail::raw("Hi, welcome user!\nYour OTP code is $otp", function ($message) use ($user_email) {
           $message->to($user_email)
-            ->subject('OTP | Global Islamic Students Alliance');
+            ->subject('OTP | ' . config('app.name'));
         });
     }
 }
