@@ -16,7 +16,7 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-// Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get(
         '/',
         [DiscussionController::class, 'get_all_discussions']
@@ -53,10 +53,20 @@ use App\Http\Controllers\AuthController;
     )->name('add-discussion');
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-// });
+});
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'handle_login']);
+Route::post('/login', [AuthController::class, 'handle_login'])
+    ->name('handle-login');
+
+Route::get('/forget-password', [AuthController::class, 'forget_password'])
+    ->name('forget-password');
+
+Route::get('/verify-otp', [AuthController::class, 'verify_otp'])
+    ->name('verify-otp');
+Route::post('/verify-otp', [AuthController::class, 'handle_otp'])
+    ->name('handle-otp');
 
 Route::get('/signup', [AuthController::class, 'signup'])->name('signup');
-Route::post('/signup', [AuthController::class, 'handle_signup']);
+Route::post('/signup', [AuthController::class, 'handle_signup'])
+    ->name('handle-signup');
