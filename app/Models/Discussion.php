@@ -10,6 +10,7 @@ use App\Models\DiscussionImage;
 use App\Models\DiscussionUpVote;
 use App\Models\DiscussionDownVote;
 use App\Models\DiscussionComment;
+use App\Models\DiscussionRead;
 
 class Discussion extends Model
 {
@@ -49,5 +50,10 @@ class Discussion extends Model
     public function comments()
     {
         return $this->hasMany(DiscussionComment::class);
+    }
+
+    public function reads()
+    {
+        return $this->hasMany(DiscussionRead::class);
     }
 }
