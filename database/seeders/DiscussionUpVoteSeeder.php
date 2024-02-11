@@ -15,11 +15,13 @@ class DiscussionUpVoteSeeder extends Seeder
         \App\Models\DiscussionUpVote::insert([
             [
                 'user_id' => 2,
-                'discussion_id' => 1
+                'discussion_id' => 1,
+                'created_at' => now()
             ],
             [
                 'user_id' => 3,
-                'discussion_id' => 1
+                'discussion_id' => 1,
+                'created_at' => now()
             ]
         ]);
     }

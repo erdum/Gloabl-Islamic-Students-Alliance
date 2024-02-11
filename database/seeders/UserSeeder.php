@@ -21,28 +21,36 @@ class UserSeeder extends Seeder
                 'gender' => 'male',
                 'email' => 'abdullah@gmail.com',
                 'password' => Hash::make('abdullah123'),
-                'country_id' => $country->id
+                'country_id' => $country->id,
+                'email_verified_at' => now(),
+                'created_at' => now()
             ],
             [
                 'name' => 'Erdum Adnan',
                 'gender' => 'male',
                 'email' => 'erdumadnan@gmail.com',
                 'password' => Hash::make('erdum123'),
-                'country_id' => $country->id
+                'country_id' => $country->id,
+                'email_verified_at' => now(),
+                'created_at' => now()
             ],
             [
                 'name' => 'Hamza Khalid',
                 'gender' => 'male',
                 'email' => 'hamzakhalid@gmail.com',
                 'password' => Hash::make('hamza123'),
-                'country_id' => $country->id
+                'country_id' => $country->id,
+                'email_verified_at' => now(),
+                'created_at' => now()
             ],
             [
                 'name' => 'Hammad Sheikh',
                 'gender' => 'male',
                 'email' => 'hammadsheikh@gmail.com',
                 'password' => Hash::make('hammad123'),
-                'country_id' => $country->id
+                'country_id' => $country->id,
+                'email_verified_at' => now(),
+                'created_at' => now()
             ],
         ]);
     }
