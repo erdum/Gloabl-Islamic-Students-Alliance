@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@yield('title') - GISA</title>
+  <title>Home - @yield('title')</title>
   <meta charset="utf-8" name="description" content="Unite beyond borders, sects, ideologies, and identities. Welcome to a global sanctuary for Islamic intellectual minds, unite and stand for the true cause. {{ config('app.name') }}">
   @vite('resources/css/app.css')
 </head>
