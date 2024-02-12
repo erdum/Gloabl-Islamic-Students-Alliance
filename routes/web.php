@@ -52,6 +52,11 @@ Route::middleware('auth')->group(function () {
         [DiscussionController::class, 'add_discussion']
     )->name('add-discussion');
 
+    Route::post(
+        '/discussions/{discussion_id}/closed',
+        [DiscussionController::class, 'calculate_seconds_spent']
+    )->name('page-close-time');
+
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
