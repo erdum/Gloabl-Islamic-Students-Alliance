@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title') - GISA</title>
-  <meta charset="utf-8" name="description" content="Unite beyond borders, sects, ideologies, and identities. Welcome to a global sanctuary for Islamic intellectual minds, unite and stand for the true cause. GISA | Global Islamic Students Alliance">
+  <meta charset="utf-8" name="description" content="Unite beyond borders, sects, ideologies, and identities. Welcome to a global sanctuary for Islamic intellectual minds, unite and stand for the true cause. {{ config('app.name') }}">
   @vite('resources/css/app.css')
 </head>
 
@@ -15,7 +15,7 @@
       <div>
         <h2 class="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl">
           <a href="{{ route('home') }}">
-            Global Islamic Students Alliance
+            {{ config('app.name') }}
           </a>
         </h2>
         <div class="mt-3 sm:mt-4 lg:grid lg:grid-cols-2 lg:gap-5 lg:items-center">
@@ -132,7 +132,7 @@
     <h2 id="footer-heading" class="sr-only">Footer</h2>
     <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
       <div class="mt-12 border-t border-gray-200 pt-8">
-        <p class="text-base text-gray-400 sm:text-center">&copy; {{ Carbon\Carbon::now()->year }} Global Islamic Students Alliance, All rights reserved.</p>
+        <p class="text-base text-gray-400 sm:text-center">&copy; {{ Carbon\Carbon::now()->year }} {{ config('app.name') }}, All rights reserved.</p>
 
       </div>
     </div>

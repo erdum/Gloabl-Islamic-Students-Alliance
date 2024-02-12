@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GISA | Global Islamic Students Alliance</title>
-  <meta charset="utf-8" name="description" content="Unite beyond borders, sects, ideologies, and identities. Welcome to a global sanctuary for Islamic intellectual minds. GISA | Global Islamic Students Alliance">
+  <title>{{ config('app.name') }}</title>
+  <meta charset="utf-8" name="description" content="Unite beyond borders, sects, ideologies, and identities. Welcome to a global sanctuary for Islamic intellectual minds. {{ config('app.name') }}">
   @vite('resources/css/app.css')
 </head>
 
@@ -31,7 +31,7 @@
     <h2 id="footer-heading" class="sr-only">Footer</h2>
     <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
       <div class="mt-12 border-t border-gray-200 pt-8">
-        <p class="text-base text-gray-400 xl:text-center">&copy; 2024 Global Islamic Students Alliance, All rights reserved.</p>
+        <p class="text-base text-gray-400 xl:text-center">&copy; {{ Carbon\Carbon::now()->year }} {{ config('app.name') }}, All rights reserved.</p>
       </div>
     </div>
   </footer>
