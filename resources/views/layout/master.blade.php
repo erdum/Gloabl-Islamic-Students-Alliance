@@ -50,9 +50,9 @@
           @csrf
           <div class="bg-white rounded-lg px-4 shadow-sm overflow-hidden focus-within:ring-stone-500 focus-within:ring-2">
             <label for="title" class="sr-only">Title</label>
-            <input required type="text" name="title" id="title" class="block w-full border-0 pt-2.5 text-lg font-medium placeholder-gray-500 focus:outline-none" placeholder="Title">
+            <input required type="text" name="title" id="title" class="block w-full border-0 pt-2.5 text-lg font-medium placeholder-gray-500 focus:outline-none focus:ring-0" placeholder="Title">
             <label for="description" class="sr-only">Description</label>
-            <textarea required rows="4" name="description" id="description" class="block mt-2 w-full border-0 py-0 resize-none placeholder-gray-500 focus:outline-none sm:text-sm" placeholder="Express your freedom..."></textarea>
+            <textarea required rows="4" name="description" id="description" class="block mt-2 w-full border-0 py-0 resize-none placeholder-gray-500 focus:outline-none focus:ring-0 sm:text-sm" placeholder="Express your freedom..."></textarea>
             <!-- Spacer element to match the height of the toolbar -->
             <div aria-hidden="true">
               <div class="py-2">
