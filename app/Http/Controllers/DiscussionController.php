@@ -3,16 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 use App\Models\Discussion;
 use App\Models\DiscussionUpVote;
 use App\Models\DiscussionDownVote;
+use App\Models\DiscussionRead;
 
 class DiscussionController extends Controller
 {
-    public function get_discussion($id)
+    public function get_discussion($id, Request $request)
     {
         $discussion = Discussion::findOrFail($id);
+
+        $read = $discussion->reads()->where('user_id', $request->user()->id)
+            ->first();
+
+        if (empty($read)) {
+            $read = new DiscussionRead;
+            $read->user_id = $request->user()->id;
+            $read->request_count = 1;
+            $discussion->reads()->save($read);
+        } else {
+            $read->request_count += 1;
+            $read->save();
+        }
 
         return view('discussion.index', ['discussion' => $discussion]);
     }
@@ -80,5 +95,27 @@ class DiscussionController extends Controller
         $request->user()->discussions()->save($discussion);
 
         return redirect()->route('discussion', ['id' => $discussion->id]);
+    }
+
+    public function calculate_seconds_spent($discussion_id, Request $request)
+    {
+        if (empty($request->time)) return response('');
+        $discussion = Discussion::find($discussion_id);
+
+        if (empty($discussion)) return response('');
+        $read = $discussion->reads()->where('user_id', $request->user()->id)
+            ->first();
+
+        if (empty($read)) return response('');
+        $close_time = Carbon::createFromTimestamp($request->time);
+        $read->last_seconds_spent = $read->updated_at
+            ->diffInSeconds($close_time);
+
+        if ($read->last_seconds_spent >= 120) {
+            $read->long_read_count += 1;
+        }
+        $read->save();
+
+        return response('');
     }
 }
