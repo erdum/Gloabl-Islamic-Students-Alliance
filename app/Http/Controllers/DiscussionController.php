@@ -47,7 +47,7 @@ class DiscussionController extends Controller
         $up_vote->user_id = $request->user()->id;
         $discussion->up_votes()->save($up_vote);
 
-        return abort(200);
+        return response('');
     }
 
     public function delete_up_vote($discussion_id, Request $request)
@@ -57,7 +57,7 @@ class DiscussionController extends Controller
         $discussion->up_votes()->where('user_id', $request->user()->id)
             ->delete();
 
-        return abort(200);
+        return response('');
     }
 
     public function down_vote($discussion_id, Request $request)
@@ -68,7 +68,7 @@ class DiscussionController extends Controller
         $down_vote->user_id = $request->user()->id;
         $discussion->down_votes()->save($down_vote);
 
-        return abort(200);
+        return response('');
     }
 
     public function delete_down_vote($discussion_id, Request $request)
@@ -77,7 +77,7 @@ class DiscussionController extends Controller
         $discussion->down_votes()->where('user_id', $request->user()->id)
             ->delete();
 
-        return abort(200);
+        return response('');
     }
 
     public function add_discussion(Request $request)
@@ -99,14 +99,14 @@ class DiscussionController extends Controller
 
     public function calculate_seconds_spent($discussion_id, Request $request)
     {
-        if (empty($request->time)) return abort(200);
+        if (empty($request->time)) return response('');
         $discussion = Discussion::find($discussion_id);
 
-        if (empty($discussion)) return abort(200);
+        if (empty($discussion)) return response('');
         $read = $discussion->reads()->where('user_id', $request->user()->id)
             ->first();
 
-        if (empty($read)) return abort(200);
+        if (empty($read)) return response('');
         $close_time = Carbon::createFromTimestamp($request->time);
         $read->last_seconds_spent = $read->updated_at
             ->diffInSeconds($close_time);
@@ -120,6 +120,6 @@ class DiscussionController extends Controller
         }
         $read->save();
 
-        return abort(200);
+        return response('');
     }
 }
