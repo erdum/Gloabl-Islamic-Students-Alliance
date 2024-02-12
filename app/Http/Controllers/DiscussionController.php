@@ -111,6 +111,10 @@ class DiscussionController extends Controller
         $read->last_seconds_spent = $read->updated_at
             ->diffInSeconds($close_time);
 
+        if ($read->last_seconds_spent > $read->max_seconds_spent) {
+            $read->max_seconds_spent = $read->last_seconds_spent;
+        }
+
         if ($read->last_seconds_spent >= 120) {
             $read->long_read_count += 1;
         }
