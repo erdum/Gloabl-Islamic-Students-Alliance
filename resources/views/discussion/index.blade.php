@@ -63,7 +63,19 @@
 @endsection
 @section('scripts')
 <script>
-  
+
+  // Send the timestamp when user closed the page
+  window.onbeforeunload = function () {
+    const token = document.querySelector('[name=_token]').value;
+    const payload = new FormData();
+    payload.set('_token', token);
+    payload.set('time', Date.parse(new Date) / 1000);
+    navigator.sendBeacon(
+      "{{ route('page-close-time', ['discussion_id' => $discussion->id]) }}", 
+      payload
+    );
+  };
+
   async function upVote(event, upvoteBtn) {
     event.preventDefault();
     const counter = upvoteBtn.querySelectorAll('span')[1];
