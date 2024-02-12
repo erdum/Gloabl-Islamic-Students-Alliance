@@ -18,7 +18,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->bigInteger('request_count')->default(0);
             $table->bigInteger('long_read_count')->default(0);
-            $table->integer('last_minutes_spent')->default(0);
+            $table->integer('last_seconds_spent')->default(0);
             $table->unique(['user_id', 'discussion_id']);
             $table->timestamps();
         });
