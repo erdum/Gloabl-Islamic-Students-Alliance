@@ -99,14 +99,14 @@ class DiscussionController extends Controller
 
     public function calculate_seconds_spent($discussion_id, Request $request)
     {
-        if (empty($request->time)) return response('');
+        if (empty($request->time)) return abort(200);
         $discussion = Discussion::find($discussion_id);
 
-        if (empty($discussion)) return response('');
+        if (empty($discussion)) return abort(200);
         $read = $discussion->reads()->where('user_id', $request->user()->id)
             ->first();
 
-        if (empty($read)) return response('');
+        if (empty($read)) return abort(200);
         $close_time = Carbon::createFromTimestamp($request->time);
         $read->last_seconds_spent = $read->updated_at
             ->diffInSeconds($close_time);
@@ -120,6 +120,6 @@ class DiscussionController extends Controller
         }
         $read->save();
 
-        return response('');
+        return abort(200);
     }
 }
