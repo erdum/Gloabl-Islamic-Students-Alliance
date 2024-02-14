@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Zip
         # run: tar --exclude='.deploy/' -czf deploy/project.tar.gz ./*
-        run: tar --exclude='.deploy/' -cz ./* | split -b 9M - deploy/project.tar.gz.part
+        run: tar --exclude='.deploy/' -czf deploy/project.tar.gz ./* | split -b 9M - deploy/project.tar.gz.part
 
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
