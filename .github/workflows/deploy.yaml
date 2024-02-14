@@ -33,11 +33,11 @@ jobs:
       - name: Move deployment script to deploy dir
         run: mv ./deploy.php ./deploy/
 
-      - name: Build Zip
-        run: tar --exclude='.deploy/' -czf deploy/project.tar.gz ./*
+      # - name: Build Zip
+      #   run: tar --exclude='.deploy/' -czf deploy/project.tar.gz ./*
 
-      - name: Split Zip Into 9Mb Multiples
-        run: split -b 9M deploy/project.tar.gz deploy/project.tar.gz.part
+      # - name: Split Zip Into 9Mb Multiples
+      #   run: split -b 9M deploy/project.tar.gz deploy/project.tar.gz.part
 
       - name: Test
         run: rm deploy/project.tar.gz && ls -lha deploy
