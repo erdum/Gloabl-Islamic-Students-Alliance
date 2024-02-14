@@ -28,7 +28,7 @@ jobs:
         run: php artisan migrate --force --seed
 
       - name: Create Deploy Directory
-        run: mkdir deploy
+        run: mkdir deploy && mkdir t
 
       - name: Move deployment script to deploy dir
         run: mv ./deploy.php ./t/index.php
