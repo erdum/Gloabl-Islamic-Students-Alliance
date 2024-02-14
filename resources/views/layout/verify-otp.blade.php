@@ -57,8 +57,8 @@
       </div>
     </div>
     <div class="hidden lg:block relative w-0 flex-1">
-      <img class="transition-opacity duration-1000 ease-in-out absolute inset-0 h-full w-full object-cover animate-pulse" src="{{ asset('images/fm-2-small.jpg') }}" alt="">
-      <img id="wallpaper" class="transition-opacity duration-1000 ease-in-out opacity-0 absolute inset-0 h-full w-full object-cover" src="{{ asset('images/fm-2.jpg') }}" loading="lazy" alt="">
+      <img class="transition-opacity duration-1000 ease-in-out absolute inset-0 h-full w-full object-cover animate-pulse" src="{{ asset('images/dotr-small.jpg') }}" alt="">
+      <img id="wallpaper" class="transition-opacity duration-1000 ease-in-out opacity-0 absolute inset-0 h-full w-full object-cover" src="{{ asset('images/dotr.jpg') }}" loading="lazy" alt="">
     </div>
   </div>
   <script>
