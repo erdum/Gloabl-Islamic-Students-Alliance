@@ -39,6 +39,9 @@ jobs:
       - name: Split Zip Into 9Mb Multiples
         run: split -b 9M deploy/project.tar.gz deploy/project.tar.gz.part
 
+      -name: Test
+        run: ls -lha deploy
+
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
