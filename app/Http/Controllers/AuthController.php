@@ -26,7 +26,7 @@ class AuthController extends Controller
     public function handle_login(Request $request)
     {
         $validated = $request->validate([
-            'email' => 'required|email:rfc',
+            'email' => 'required|email:rfc,dns',
             'password' => 'required'
         ]);
         $unverified_user = User::where('email', $request->email)
@@ -59,7 +59,7 @@ class AuthController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email:rfc',
+            'email' => 'required|email:rfc,dns',
             'gender' => 'required',
             'password' => 'required',
         ]);
