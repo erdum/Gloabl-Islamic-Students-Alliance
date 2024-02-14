@@ -89,7 +89,7 @@
 
               @if ($errors->has('password'))
               <div>
-                <label for="password" class="block text-sm font-medium text-gray-700">Email address</label>
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                 <div class="mt-1 relative rounded-md shadow-sm">
                   <input id="password" name="password" type="password" autocomplete="password" required value="{{ old('password') }}" class="block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md" aria-invalid="true" aria-describedby="name-error">
                   <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -105,12 +105,23 @@
               </div>
               @else
               <div class="space-y-1">
-                <label for="password" class="block text-sm font-medium text-gray-700"> Password </label>
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                 <div class="mt-1">
                   <input id="password" name="password" type="password" autocomplete="current-password" required value="{{ old('password') }}" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm">
                 </div>
               </div>
               @endif
+
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-stone-600 focus:ring-stone-500 border-gray-300 rounded">
+                  <label for="remember-me" class="ml-2 block text-sm text-gray-900"> Remember me </label>
+                </div>
+
+                <div class="text-sm">
+                  <a href="{{ route('forget-password') }}" class="font-medium text-stone-600 hover:text-stone-500"> Forgot your password? </a>
+                </div>
+              </div>
 
               <div>
                 <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-stone-600 hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500">Login</button>

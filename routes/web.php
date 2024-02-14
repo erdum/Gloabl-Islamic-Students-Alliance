@@ -66,6 +66,17 @@ Route::post('/login', [AuthController::class, 'handle_login'])
 
 Route::get('/forget-password', [AuthController::class, 'forget_password'])
     ->name('forget-password');
+Route::post(
+    '/forget-password',
+    [AuthController::class, 'handle_forgotten_password']
+)->name('handle-forgotten-passowrd');
+
+Route::get('/reset-password', [AuthController::class, 'reset_password'])
+    ->name('reset-password');
+Route::post(
+    '/reset-password',
+    [AuthController::class, 'handle_reset_password']
+)->name('handle-reset-password');
 
 Route::get('/verify-otp', [AuthController::class, 'verify_otp'])
     ->name('verify-otp');

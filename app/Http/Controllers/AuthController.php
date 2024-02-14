@@ -121,6 +121,50 @@ class AuthController extends Controller
         return redirect()->intended('/');
     }
 
+    public function forget_password()
+    {
+        return view('layout.forget-password');
+    }
+
+    public function handle_forgotten_password(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|exists:users,email|email:rfc,dns'
+        ], [
+            'email.exists' => 'Invalid Email!'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+        $user->otp = rand(100000, 999999);
+        $user->save();
+        $this->send_otp($user->email, $user->otp);
+
+        return redirect()->route('reset-password');
+    }
+
+    public function reset_password()
+    {
+        return view('layout.reset-password');
+    }
+
+    public function handle_reset_password(Request $request)
+    {
+        $request->validate(
+            [
+                'otp' => 'required|exists:users,otp',
+                'new_password' => 'required',
+            ],
+            ['otp.exists' => 'Invalid OTP code!']
+        );
+
+        $user = User::where('otp', $request->otp)->first();
+        $user->password = Hash::make($request->new_password);
+        $user->otp = null;
+        $user->save();
+
+        return redirect()->route('login');
+    }
+
     public function logout(Request $request)
     {
         Auth::logout();
