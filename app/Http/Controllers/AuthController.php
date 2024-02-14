@@ -48,7 +48,7 @@ class AuthController extends Controller
 
         return redirect()->back()->withErrors([
             'email' => 'Invalid credentials!',
-            'password' => 'Incorrect credentials!'
+            'password' => 'Invalid credentials!'
         ])->withInput();
     }
 
