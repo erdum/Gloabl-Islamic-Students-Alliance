@@ -30,8 +30,8 @@ jobs:
       - name: Create Deploy Directory
         run: mkdir deploy
 
-      - name: Move deployment script to deploy dir
-        run: mv ./deploy.php ./deploy/
+      # - name: Move deployment script to deploy dir
+      #   run: mv ./deploy.php ./deploy/
 
       - name: Build Zip
         # run: tar --exclude='.deploy/' -czf deploy/project.tar.gz ./*
