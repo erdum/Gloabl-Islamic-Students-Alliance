@@ -162,6 +162,11 @@ class AuthController extends Controller
         $user->otp = null;
         $user->save();
 
+        Mail::raw("Hi, welcome user!\nYour password has been updated at " . now(), function ($message) use ($user_email) {
+          $message->to($user_email)
+            ->subject('Password Updated | ' . config('app.name'));
+        });
+
         return redirect()->route('login');
     }
 
