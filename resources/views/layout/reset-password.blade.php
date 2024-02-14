@@ -25,7 +25,7 @@
 
               @if ($errors->has('otp'))
               <div>
-                <label for="otp" class="block text-sm font-medium text-gray-700">OTP</label>
+                <label for="otp" class="block text-sm font-medium text-gray-700">Enter OTP</label>
                 <div class="mt-1 relative rounded-md shadow-sm">
                   <input id="otp" name="otp" type="text" autocomplete="otp" required maxlength="6" value="{{ old('otp') }}" class="block w-full pr-10 border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md" aria-invalid="true" aria-describedby="name-error">
                   <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -41,7 +41,7 @@
               </div>
               @else
               <div>
-                <label for="otp" class="block text-sm font-medium text-gray-700">OTP</label>
+                <label for="otp" class="block text-sm font-medium text-gray-700">Enter OTP</label>
                 <div class="mt-1">
                   <input id="otp" name="otp" type="text" autocomplete="otp" required maxlength="6" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm">
                 </div>
