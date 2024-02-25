@@ -50,9 +50,12 @@
           @csrf
           <div class="bg-white rounded-lg px-4 shadow-sm overflow-hidden focus-within:ring-stone-500 focus-within:ring-2">
             <label for="title" class="sr-only">Title</label>
-            <input required type="text" name="title" id="title" class="block w-full border-0 pt-2.5 text-lg font-medium placeholder-gray-500 focus:outline-none focus:ring-0" placeholder="Title">
+            <input required type="text" name="title" id="title" class="block w-full border-0 pt-2.5 pl-0 text-lg font-medium placeholder-gray-500 focus:outline-none focus:ring-0" placeholder="Title">
             <label for="description" class="sr-only">Description</label>
-            <textarea required rows="4" name="description" id="description" class="block mt-2 w-full border-0 py-0 resize-none placeholder-gray-500 focus:outline-none focus:ring-0 sm:text-sm" placeholder="Express your freedom..."></textarea>
+            <textarea required rows="4" name="description" id="description" class="block mt-2 pl-0 w-full border-0 py-0 resize-none placeholder-gray-500 focus:outline-none focus:ring-0 sm:text-sm" placeholder="Express your freedom..."></textarea>
+            <div id="images-wrapper" class="flex gap-4 flex-wrap mt-4">
+              <img class="w-32 aspect-square object-cover hidden">
+            </div>
             <!-- Spacer element to match the height of the toolbar -->
             <div aria-hidden="true">
               <div class="py-2">
@@ -110,7 +113,8 @@
             </div>
             <div class="border-t border-gray-200 px-2 py-2 flex justify-between items-center space-x-3 sm:px-3">
               <div class="flex">
-                <button type="button" class="-ml-2 -my-2 rounded-full px-3 py-2 inline-flex items-center text-left text-gray-400 group">
+                <button onclick="attachImages(this)" type="button" class="-ml-2 -my-2 rounded-full px-3 py-2 inline-flex items-center text-left text-gray-400 group">
+                  <input type="file" name="images" multiple accept="image/*" class="hidden">
                   <!-- Heroicon name: solid/paper-clip -->
                   <svg class="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd" />
@@ -198,6 +202,31 @@
       'blur',
       () => closeTopicPopover()
     );
+
+    document.querySelector('[name=images]').addEventListener(
+      'change',
+      ({ currentTarget: { files }}) => handleImages(files)
+    );
+
+    function handleImages(images) {
+      const wrapper = document.getElementById('images-wrapper');
+
+      Array.from(images).forEach(img => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const newImg = wrapper.children[0].cloneNode();
+          newImg.setAttribute('src', reader.result);
+          newImg.classList.remove('hidden');
+          wrapper.appendChild(newImg);
+        };
+        reader.readAsDataURL(img);
+      });
+    }
+
+    function attachImages(elem) {
+      const fileInput = elem.children[0];
+      fileInput.click();
+    }
 
     function closeErrorToast(elem, event) {
 
